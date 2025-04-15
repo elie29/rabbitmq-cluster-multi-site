@@ -2,7 +2,7 @@
 
 ## 🎯 Objective: Data Synchronization Architecture
 
-Enable on-premise sites with Oracle or SQL Server databases to operate independently while ensuring data synchronization via a resilient event bus (RabbitMQ).
+Enable on-premise sites with Oracle, PostgreSQL or SQL Server databases to operate independently while ensuring data synchronization via a resilient event bus (RabbitMQ).
 
 This project is intended to build the cluster described in the following article: [Building a Resilient Site-Aware Synchronization](https://elie29.hashnode.dev/building-a-resilient-site-aware-synchronization)
 
@@ -11,7 +11,7 @@ This project is intended to build the cluster described in the following article
 | Component            | Role                                                                 |
 |----------------------|----------------------------------------------------------------------|
 | `Outbox`             | Local table storing events emitted by the application, pending dispatch. |
-| `RabbitMQ Cluster`   | Deployed with 3 brokers in clustered mode behind HaProxy or a LoadBalancer. Handles event distribution (fanout). |
+| `RabbitMQ Cluster`   | Deployed with 3 brokers in clustered mode behind HaProxy. Handles event distribution (fanout). |
 | `Producer`           | The local application that writes to the database and the `Outbox` in a single transaction. |
 | `Consumer`           | Local process consuming events via RabbitMQ to apply changes to the database. |
 | `Event`              | Typical structure: `id`, `timestamp`, `origin`, `type`, `data`. |
