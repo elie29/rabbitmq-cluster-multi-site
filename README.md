@@ -46,7 +46,7 @@ When a `Consumer` receives an event it originally emitted, it deletes it from th
 
 - Processing confirmations or error messages can be sent back to the emitting site via the default (direct) exchange, or to both the emitter and the archive using a topic exchange.
 
-## Try it your self
+## 🚀 Try It Yourself
 
 ### `docker-compose.yml`
 
