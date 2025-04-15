@@ -7,6 +7,7 @@ services:
       - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
       - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}
+      - RABBITMQ_SHARED_COOKIE=${RABBITMQ_SHARED_COOKIE}
     volumes:
       - "${PWD}/cluster-entrypoint.sh:/usr/local/bin/cluster-entrypoint.sh"
       - rabbitmq1-data:/var/lib/rabbitmq/
@@ -21,6 +22,8 @@ services:
     container_name: rabbitmq2
     depends_on:
       - rabbitmq1
+    environment:
+      - RABBITMQ_SHARED_COOKIE=${RABBITMQ_SHARED_COOKIE}
     volumes:
       - "${PWD}/cluster-entrypoint.sh:/usr/local/bin/cluster-entrypoint.sh"
       - rabbitmq2-data:/var/lib/rabbitmq/
@@ -35,6 +38,8 @@ services:
     container_name: rabbitmq3
     depends_on:
       - rabbitmq1
+    environment:
+      - RABBITMQ_SHARED_COOKIE=${RABBITMQ_SHARED_COOKIE}
     volumes:
       - "${PWD}/cluster-entrypoint.sh:/usr/local/bin/cluster-entrypoint.sh"
       - rabbitmq3-data:/var/lib/rabbitmq/
