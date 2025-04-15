@@ -6,7 +6,6 @@ Enable on-premise sites with Oracle or SQL Server databases to operate independe
 
 This project is intended to build the cluster described in the following article: [Building a Resilient Site-Aware Synchronization](https://elie29.hashnode.dev/building-a-resilient-site-aware-synchronization)
 
-
 ## 🧱 Components
 
 | Component            | Role                                                                 |
@@ -46,3 +45,42 @@ When a `Consumer` receives an event it originally emitted, it deletes it from th
 ## 🛠️ Advanced Options
 
 - Processing confirmations or error messages can be sent back to the emitting site via the default (direct) exchange, or to both the emitter and the archive using a topic exchange.
+
+## Try it your self
+
+### `docker-compose.yml`
+
+docker-compose config file, including 3 RabbitMQ nodes and an HAProxy.
+
+| Service     | Description               |
+| ----------- | ------------------------- |
+| `rabbitmq1` | RabbitMQ (cluster)        |
+| `rabbitmq2` | RabbitMQ (cluster member) |
+| `rabbitmq3` | RabbitMQ (cluster member) |
+| `haproxy`   | Load Balancer             |
+
+#### Default expose ports
+
+| Host              | Description                     |
+| ----------------- | ------------------------------- |
+| `localhost:1936`  | HA proxy stats                  |
+| `localhost:5672`  | AMQP 0-9-1 and AMQP 1.0 clients |
+| `localhost:15672` | HTTP API clients, management UI |
+
+### `.env`
+
+| Name                     | Default |
+| ------------------------ | ------- |
+| `RABBITMQ_DEFAULT_USER`  | admin   |
+| `RABBITMQ_DEFAULT_PASS`  | 123456  |
+| `RABBITMQ_DEFAULT_VHOST` | /       |
+| `RABBITMQ_SHARED_COOKIE` | 123455054ce768211b836f9b392fc |
+
+### Configure and launch
+
+- rename .env.sample to .env, than update the info
+- `docker-compose up -d`
+
+### Stop node and try again
+
+- `docker-compose up -d --scale rabbitmq1=0`
