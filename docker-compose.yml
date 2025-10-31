@@ -9,7 +9,7 @@ services:
       - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}
       - RABBITMQ_SHARED_COOKIE=${RABBITMQ_SHARED_COOKIE}
     volumes:
-      - "${PWD}/cluster-entrypoint.sh:/usr/local/bin/cluster-entrypoint.sh"
+      - "./cluster-entrypoint.sh:/usr/local/bin/cluster-entrypoint.sh:ro"
       - rabbitmq1-data:/var/lib/rabbitmq/
       - rabbitmq1-logs:/var/log/rabbitmq
     entrypoint: /usr/local/bin/cluster-entrypoint.sh
@@ -25,7 +25,7 @@ services:
     environment:
       - RABBITMQ_SHARED_COOKIE=${RABBITMQ_SHARED_COOKIE}
     volumes:
-      - "${PWD}/cluster-entrypoint.sh:/usr/local/bin/cluster-entrypoint.sh"
+      - "./cluster-entrypoint.sh:/usr/local/bin/cluster-entrypoint.sh:ro"
       - rabbitmq2-data:/var/lib/rabbitmq/
       - rabbitmq2-logs:/var/log/rabbitmq
     entrypoint: /usr/local/bin/cluster-entrypoint.sh
@@ -41,7 +41,7 @@ services:
     environment:
       - RABBITMQ_SHARED_COOKIE=${RABBITMQ_SHARED_COOKIE}
     volumes:
-      - "${PWD}/cluster-entrypoint.sh:/usr/local/bin/cluster-entrypoint.sh"
+      - "./cluster-entrypoint.sh:/usr/local/bin/cluster-entrypoint.sh:ro"
       - rabbitmq3-data:/var/lib/rabbitmq/
       - rabbitmq3-logs:/var/log/rabbitmq
     entrypoint: /usr/local/bin/cluster-entrypoint.sh
@@ -52,7 +52,7 @@ services:
     image: haproxy:1.7
     container_name: haproxy
     volumes:
-      - "${PWD}/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro"
+      - "./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro"
     depends_on:
       - rabbitmq1
       - rabbitmq2
